@@ -23,19 +23,19 @@ void displayFrames() {
     printf("\n");
 }
 
-// FCFS Page Replacement
-void FCFS() {
+// FIFO Page Replacement
+void FIFO() {
     int page_faults = 0, next_replace = 0;
     for (int i = 0; i < n; i++) {
-        if (!isPageInFrames(pages[i])) {
+        if (!isPageInFrames(pages[i])) { // Page fault occurs
             frames[next_replace] = pages[i];
-            next_replace = (next_replace + 1) % fsize;
+            next_replace = (next_replace + 1) % fsize; // FIFO rotation
             page_faults++;
             printf("Page fault at page %d: ", pages[i]);
             displayFrames();
         }
     }
-    printf("FCFS Page Faults: %d\n", page_faults);
+    printf("FIFO Page Faults: %d\n", page_faults);
 }
 
 // LRU Page Replacement
@@ -89,13 +89,13 @@ int main() {
     printf("Enter number of frames: ");
     scanf("%d", &fsize);
 
-    printf("Choose Page Replacement Algorithm:\n1. FCFS\n2. LRU\n3. Optimal\n");
+    printf("Choose Page Replacement Algorithm:\n1. FIFO\n2. LRU\n3. Optimal\n");
     scanf("%d", &choice);
 
     for (int i = 0; i < fsize; i++) frames[i] = -1; // Initialize frames
 
     switch (choice) {
-        case 1: FCFS(); break;
+        case 1: FIFO(); break;
         case 2: LRU(); break;
         case 3: Optimal(); break;
         default: printf("Invalid choice!\n"); break;
