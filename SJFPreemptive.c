@@ -48,6 +48,7 @@ int main() {
 
         currentTime++;
         shortest = -1;
+        minBurstTime = INT_MAX;
     }
 
     printf("\nProcess\tArrival Time\tBurst Time\tCompletion Time\tTurnaround Time\tWaiting Time\n");
