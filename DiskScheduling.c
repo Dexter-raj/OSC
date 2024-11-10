@@ -32,6 +32,9 @@ void SSTF(int req[], int n, int head) {
         totalMovement += minDist;
         head = req[nearest];
         completed[nearest] = 1;
+
+        // Print the head movement
+        printf("Head moved to: %d\n", head);
     }
 
     printf("Total Head Movement (SSTF): %d\n", totalMovement);
@@ -47,20 +50,27 @@ void SCAN(int req[], int n, int head, int diskSize) {
     // Find the first request greater than or equal to head position
     for (i = 0; i < n && req[i] < head; i++);
 
-    // Move towards the end of disk servicing requests
-    for (int j = i; j < n; j++) {
-        totalMovement += abs(req[j] - head);
-        head = req[j];
-    }
-
-    // Move to the end of the disk
-    totalMovement += abs(diskSize - 1 - head);
-    head = diskSize - 1;
-
-    // Move back towards the beginning, servicing remaining requests
+    // Move towards the left (towards 0) first for all smaller requests
     for (int j = i - 1; j >= 0; j--) {
         totalMovement += abs(req[j] - head);
         head = req[j];
+        
+        // Print the head movement
+        printf("Head moved to: %d\n", head);
+    }
+
+    // Move to the end of the disk
+    totalMovement += abs(head - 0); // Move to 0
+    head = 0;
+    printf("Head moved to: %d\n", head);
+
+    // Now move towards the right (diskSize-1), servicing remaining requests
+    for (int j = i; j < n; j++) {
+        totalMovement += abs(req[j] - head);
+        head = req[j];
+        
+        // Print the head movement
+        printf("Head moved to: %d\n", head);
     }
 
     printf("Total Head Movement (SCAN): %d\n", totalMovement);
@@ -80,12 +90,18 @@ void CLOOK(int req[], int n, int head) {
     for (int j = i; j < n; j++) {
         totalMovement += abs(req[j] - head);
         head = req[j];
+        
+        // Print the head movement
+        printf("Head moved to: %d\n", head);
     }
 
     // Jump to the start of the disk requests and continue servicing
     for (int j = 0; j < i; j++) {
         totalMovement += abs(req[j] - head);
         head = req[j];
+        
+        // Print the head movement
+        printf("Head moved to: %d\n", head);
     }
 
     printf("Total Head Movement (C-LOOK): %d\n", totalMovement);
@@ -113,15 +129,12 @@ int main() {
     printf("Enter disk size: ");
     scanf("%d", &diskSize);
 
+    // Call SSTF, SCAN, and C-LOOK functions
+    SSTF(req, n, head);
     
+    SCAN(req, n, head, diskSize);
     
-    SSTF(req, n, head); 
-    
-    SCAN(req, n, head, diskSize); 
-    
-    CLOOK(req, n, head); 
-        
-    
+    CLOOK(req, n, head);
 
     return 0;
 }
