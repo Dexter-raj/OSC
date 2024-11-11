@@ -53,3 +53,10 @@
  d->flag=-1;
  shmdt(d);
  }
+
+//Commands to execute
+//Open two terminal Window
+//First Terminal: gcc server.c -o server-out
+//Second Terminal : gcc client.c -o client-out
+//Second Terminal : ./client.out
+//First Terminal : ./server.out
