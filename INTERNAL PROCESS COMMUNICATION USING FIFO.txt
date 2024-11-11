@@ -84,7 +84,7 @@ while(buff[i]!='#')
  close(d2);
  }
 
-//gcc afifo.c -o a.out
-//gcc bfifo.c -o b.out
+//gcc a.c -o a.out
+//gcc b.c -o b.out
 //./a.out
 //./b.out
