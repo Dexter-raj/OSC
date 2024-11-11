@@ -83,3 +83,8 @@ while(buff[i]!='#')
  write(d2 , "abc.txt" , 7);
  close(d2);
  }
+
+//gcc afifo.c -o a.out
+//gcc bfifo.c -o b.out
+//./a.out
+//./b.out
